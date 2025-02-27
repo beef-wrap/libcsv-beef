@@ -37,7 +37,7 @@ static class Program
 		char c;
 		counts count = .();
 
-		let str = "1, 2, 4, 5, 6";
+		let str = "1, 2, 4, 5,, 6,";
 
 		csv_init(&p, 0);
 

@@ -43,12 +43,9 @@ public static class libcsv
 	/* parser options */
 	public const int CSV_STRICT = 1; /* enable strict mode */
 	public const int CSV_REPALL_NL = 2; /* report all unquoted carriage returns and linefeeds */
-	public const int CSV_STRICT_FINI = 4; /* causes csv_fini to return CSV_EPARSE if last
-								field is quoted and doesn't containg ending 
-								quote */
+	public const int CSV_STRICT_FINI = 4; /* causes csv_fini to return CSV_EPARSE if last field is quoted and doesn't containg ending  quote */
 	public const int CSV_APPEND_NULL = 8; /* Ensure that all fields are null-terminated */
-	public const int CSV_EMPTY_IS_NULL = 16; /* Pass null pointer to cb1 function when
-									empty, unquoted fields are encountered */
+	public const int CSV_EMPTY_IS_NULL = 16; /* Pass null pointer to cb1 function when empty, unquoted fields are encountered */
 
 	/* Character values */
 	public const int CSV_TAB    = 0x09;
@@ -78,10 +75,14 @@ public static class libcsv
 		function void free_func(void*); /* function used to free buffer memory */
 	};
 
+	public function void field_callback(void*, size_t, void*);
+
+	public function void row_callback(int, void*);
+
 	/* Function Prototypes */
 	[CLink] public static extern int csv_init(csv_parser* p, c_uchar options);
 
-	[CLink] public static extern int csv_fini(csv_parser* p, function void(void*, size_t, void*) cb1, function void(int, void*) cb2, void* data);
+	[CLink] public static extern int csv_fini(csv_parser* p, field_callback, row_callback, void* data);
 
 	[CLink] public static extern void csv_free(csv_parser* p);
 
@@ -89,7 +90,7 @@ public static class libcsv
 
 	[CLink] public static extern char* csv_strerror(int error);
 
-	[CLink] public static extern size_t csv_parse(csv_parser* p, void* s, size_t len, function void(void*, size_t, void*) cb1, function void(int, void*) cb2, void* data);
+	[CLink] public static extern size_t csv_parse(csv_parser* p, void* s, size_t len, field_callback, row_callback, void* data);
 
 	[CLink] public static extern size_t csv_write(void* dest, size_t dest_size, void* src, size_t src_size);
 
@@ -111,13 +112,13 @@ public static class libcsv
 
 	[CLink] public static extern c_uchar csv_get_quote(csv_parser* p);
 
-	[CLink] public static extern void csv_set_space_func(csv_parser* p, function int(c_uchar) f);
+	[CLink] public static extern void csv_set_space_func(csv_parser* p, function int(c_uchar) fn);
 
-	[CLink] public static extern void csv_set_term_func(csv_parser* p, function int(c_uchar) f);
+	[CLink] public static extern void csv_set_term_func(csv_parser* p, function int(c_uchar) fn);
 
-	[CLink] public static extern void csv_set_realloc_func(csv_parser* p, function void*  (void*, size_t));
+	[CLink] public static extern void csv_set_realloc_func(csv_parser* p, function void*(void*, size_t) fn);
 
-	[CLink] public static extern void csv_set_free_func(csv_parser* p, function void(void*));
+	[CLink] public static extern void csv_set_free_func(csv_parser* p, function void(void*) fn);
 
 	[CLink] public static extern void csv_set_blk_size(csv_parser* p, size_t);
 

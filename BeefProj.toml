@@ -7,4 +7,4 @@ StartupObject = "libcsv_beef.Program"
 
 [Configs.Debug.Win64]
 CLibType = "DynamicDebug"
-LibPaths = ["$(ProjectDir)\\libs\\libcsv_d.lib"]
+LibPaths = ["$(ProjectDir)\\libs\\libcsv.lib"]
