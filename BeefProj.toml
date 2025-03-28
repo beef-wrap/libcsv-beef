@@ -2,9 +2,10 @@ FileVersion = 1
 
 [Project]
 Name = "libcsv-beef"
-TargetType = "BeefLib"
-StartupObject = "libcsv_beef.Program"
+DefaultNamespace = "libcsv"
 
 [Configs.Debug.Win64]
-CLibType = "DynamicDebug"
-LibPaths = ["$(ProjectDir)\\libs\\libcsv.lib"]
+LibPaths = ["$(ProjectDir)\\libs\\windows\\x64\\libcsv_d.lib"]
+
+[Configs.Release.Win64]
+LibPaths = ["$(ProjectDir)\\libs\\windows\\x64\\libcsv.lib"]

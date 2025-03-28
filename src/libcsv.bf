@@ -25,7 +25,7 @@ namespace libcsv_Beef;
 public static class libcsv
 {
 	public typealias FILE = void*;
-	public typealias size_t = c_uintptr;
+	public typealias size_t = uint;
 	public typealias char = char8;
 
 	public const int CSV_MAJOR = 3;
@@ -73,7 +73,7 @@ public static class libcsv
 		function void* malloc_func(size_t); /* not used */
 		function void* realloc_func(void*, size_t); /* function used to allocate buffer memory */
 		function void free_func(void*); /* function used to free buffer memory */
-	};
+	}
 
 	public function void field_callback(void*, size_t, void*);
 
